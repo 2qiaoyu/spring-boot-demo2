@@ -1,0 +1,111 @@
+---
+spring:
+  data:
+    mongodb:
+      password: admin
+      database: test
+      port: 27017
+      host: 127.0.0.1
+      username: admin
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 127.0.0.1:9300
+  mail:
+    password: 123456
+    default-encoding: UTF-8
+    host: smtp.exmail.qq.com
+    username: qiaoyu@joham.com
+  application:
+    name: spring-boot-demo
+  datasource:
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demo?characterEncoding=UTF-8&&zeroDateTimeBehavior=convertToNull&autoReconnect=true&failOverReadOnly=false&connectTimeout=0
+    username: root
+    tomcat:
+      initial-size: 15
+      max-wait: 20000
+      max-active: 50
+      max-idle: 15
+      min-idle: 8
+      default-auto-commit: true
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hbm2ddl:
+          auto: update
+    open-in-view: true
+  thymeleaf:
+    mode: HTML
+    cache: false
+  boot:
+    admin:
+      client:
+        url: http://localhost:8000
+  rabbitmq:
+    password: guest
+    port: 5672
+    host: 127.0.0.1
+    username: guest
+    # 是否开启消息发送到交换器（Exchange）后触发回调
+    publisher-confirms: false
+    # 是否开启消息发送到队列（Queue）后触发回调
+    publisher-returns: false
+    template:
+      # 消息发送失败重试相关配置
+      retry:
+        enabled: true
+        initial-interval: 3000ms
+        max-attempts: 3
+        max-interval: 10000ms
+        multiplier: 1
+    listener:
+      simple:
+        # 消息接收确认，可选模式：NONE（不确认）、AUTO（自动确认）、MANUAL（手动确认）
+        acknowledge-mode: AUTO
+        # 最小线程数量
+        concurrency: 10
+        # 最大线程数量
+        max-concurrency: 10
+        # 每个消费者可能未完成的最大未确认消息数量
+        prefetch: 1
+  main:
+    allow-bean-definition-overriding: true
+mybatis:
+  mapperLocations: classpath:mybatis/mapper/**/*.xml
+logging:
+  path: /user/local/log
+  level:
+    com:
+      joham: DEBUG
+    org:
+      springframework:
+        web: INFO
+      hibernate: ERROR
+  config: classpath:log/logback-spring.xml
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+## 家乡属性
+home:
+  province: 江苏省
+  city: 南京市
+  desc: 我家住在${home.province}的${home.city}
+
+## 随机属性
+user:
+  id: ${random.long}
+  age: ${random.int[1,200]}
+  desc: 我叫做${random.value}
+  uuid: ${random.uuid}
+
