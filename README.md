@@ -20,3 +20,4 @@
 * 集成 Elasticsearch
 * 集成 Swagger
 * 集成 Quartz
+* 图片上传

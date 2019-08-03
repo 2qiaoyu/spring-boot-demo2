@@ -18,7 +18,7 @@ docker run -d --hostname rabbit --name rabbit -p 5672:5672 -p 15672:15672 -e RAB
 发送优先级低的消息 100 条到 RabbitMQ
 ```
 curl -X POST \
-  http://127.0.0.1:8080/send \
+  http://127.0.0.1:8080/priorityqueue/send \
   -H 'Content-Type: application/json' \
   -d '{
 	"exchange":"exchange-direct",
@@ -32,7 +32,7 @@ curl -X POST \
 发送优先级高的消息 5 条到 RabbitMQ
 ```
 curl -X POST \
-  http://127.0.0.1:8080/send \
+  http://127.0.0.1:8080/priorityqueue/send \
   -H 'Content-Type: application/json' \
   -d '{
 	"exchange":"exchange-direct",
