@@ -7,7 +7,9 @@ import com.joham.demo.es.vo.ContentSearchBean;
 import com.joham.demo.es.vo.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.thymeleaf.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -33,6 +35,16 @@ public class CityRestController {
     @RequestMapping(value = "/api/city", method = RequestMethod.POST)
     public Long createCity(@RequestBody City city) {
         return cityService.saveCity(city);
+    }
+
+    /**
+     * 获取ES所有城市
+     *
+     * @return
+     */
+    @GetMapping(value = "/api/city")
+    public List<City> getCity() {
+        return cityService.getCity().getContent();
     }
 
     /**
@@ -102,6 +114,9 @@ public class CityRestController {
      */
     @GetMapping(value = "/api/city/ik/content")
     public List<String> handlingSearchContent(String searchContent, String type) {
+        if(StringUtils.isEmpty(searchContent)) {
+            return new ArrayList<>();
+        }
         return ikUtil.handlingSearchContent(searchContent, type);
     }
 

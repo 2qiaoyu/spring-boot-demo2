@@ -43,6 +43,10 @@ public class CityService {
         return cityResult.getId();
     }
 
+    public Page<City> getCity() {
+        return cityRepository.findAll(pageable);
+    }
+
     public List<City> findByDescriptionAndProvinceId(String description, Integer provinceId) {
         return cityRepository.findByDescriptionAndProvinceId(description, provinceId);
     }
