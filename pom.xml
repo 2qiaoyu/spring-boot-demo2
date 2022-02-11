@@ -145,12 +145,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>19.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.querydsl</groupId>
             <artifactId>querydsl-jpa</artifactId>
         </dependency>
@@ -188,11 +182,10 @@
             <version>2.9.2</version>
         </dependency>
 
-        <!-- 解决FluentIterable.class找不到问题 -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>26.0-jre</version>
+            <version>31.0.1-jre</version>
         </dependency>
 
         <dependency>
