@@ -46,7 +46,9 @@ sbin/rabbitmq-plugins enable rabbitmq_delayed_message_exchange
 
 ### 安装mongodb
 
-brew tap mongodb/brew brew install mongodb-community
+brew tap mongodb/brew
+
+brew install mongodb-community
 
 ### 启动es
 
