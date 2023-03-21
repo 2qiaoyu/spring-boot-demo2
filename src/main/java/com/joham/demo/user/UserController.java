@@ -1,5 +1,9 @@
 package com.joham.demo.user;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -26,6 +30,50 @@ public class UserController {
 
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @RequestMapping("/testSelectOne")
+    public User testSelectOne() {
+        User user = userMapper.selectById(1L);
+        return user;
+    }
+
+    @RequestMapping("/testInsert")
+    public void testInsert() {
+        User user = new User();
+        user.setUserName("bab");
+        user.setEmail("neo@tooool.org");
+        user.setNickName("asd");
+        user.setPassWord("xcb");
+        user.setRegTime("2023-03-21:15:36:22");
+        userMapper.insert(user);
+    }
+
+    @RequestMapping("/testUpdate")
+    public void testUpdate() {
+        userMapper.update(null, Wrappers.<User>lambdaUpdate().set(User::getEmail, "123@123.com").eq(User::getId, 2L));
+    }
+
+    @RequestMapping("/testPage")
+    public void testPage() {
+        System.out.println("----- baseMapper 自带分页 ------");
+        Page<User> page = new Page<>(1, 10);
+        IPage<User> userIPage = userMapper.selectPage(page, new QueryWrapper<User>());
+//        IPage<User> userIPage = userMapper.selectPage(page, new QueryWrapper<User>().gt("id", 26));
+        System.out.println("总条数 ------> " + userIPage.getTotal());
+        System.out.println("当前页数 ------> " + userIPage.getCurrent());
+        System.out.println("当前每页显示数 ------> " + userIPage.getSize());
+        System.out.println(userIPage.getRecords());
+        System.out.println("----- baseMapper 自带分页 ------");
+    }
+
+    @RequestMapping("/testSelect")
+    public void testSelect() {
+        List<User> userList = userMapper.selectList(null);
+        userList.forEach(System.out::println);
+    }
 
     @RequestMapping("/getUser")
     @Cacheable(value = "user-key")
